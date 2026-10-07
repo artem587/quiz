@@ -1,0 +1,1 @@
+<div class="page-head"><div><span class="eyebrow">УЧЕНЬ</span><h1>Мої курси</h1></div></div><div class="grid"><?php foreach($courses as $c): ?><a class="card item" href="<?=url('course/'.$c['id'])?>"><div class="icon">📚</div><div><h3><?=e($c['title'])?></h3><p><?=e($c['description'])?></p></div></a><?php endforeach; ?></div>

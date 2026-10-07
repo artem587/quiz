@@ -1,0 +1,10 @@
+<div class="section-title"><div><span class="eyebrow">FILL IN THE BLANK</span><h1>Редактирование</h1></div><a class="btn ghost" href="<?=url('course/'.$item['course_id'])?>">← Назад</a></div>
+<form method="post" enctype="multipart/form-data" class="card form"><input type="hidden" name="csrf" value="<?=csrf()?>">
+<label>Предложение<textarea name="sentence_template" required><?=e($item['sentence_template'])?></textarea></label>
+<label>Режим ответа<select name="answer_mode"><option value="choice" <?=($item["answer_mode"]??"choice")==="choice"?"selected":""?>>Выбрать слово</option><option value="drag" <?=($item["answer_mode"]??"choice")==="drag"?"selected":""?>>Перетащить слово</option><option value="type" <?=($item["answer_mode"]??"choice")==="type"?"selected":""?>>Вписать самому</option></select></label><label>Правильный ответ<input name="correct_answer" required value="<?=e($item['correct_answer'])?>"></label>
+<div class="options"><b>Варианты</b><?php foreach($item['options']??[] as $o):?><input name="option[]" value="<?=e($o['option_text'])?>"><?php endforeach;?></div>
+<label>Аудио URL<input name="audio_url" value="<?=e($item['audio_url']??'')?>"></label>
+<label>Новый аудиофайл<input type="file" name="audio_file" accept="audio/*"></label>
+<div class="audio-tools"><button type="button" class="btn ghost speak">🔊 Озвучить</button><button type="button" class="btn ghost gtranslate">🌐 Google</button></div>
+<button class="btn primary">Сохранить</button></form>
+<script>const t=document.querySelector('[name="sentence_template"]');document.querySelector('.speak').onclick=()=>{if(t.value&&speechSynthesis){speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(t.value))}};document.querySelector('.gtranslate').onclick=()=>{if(t.value)window.open('https://translate.google.com/?sl=auto&tl=en&text='+encodeURIComponent(t.value)+'&op=translate','_blank')};</script><script>document.getElementById('addOption')?.addEventListener('click',()=>{let x=document.createElement('input');x.name='option[]';x.placeholder='Новый вариант';document.querySelector('.options').appendChild(x)});</script>

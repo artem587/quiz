@@ -31,6 +31,7 @@ if($dbOk){
         } catch(Throwable $e) { $errors[]="$t: table is missing"; }
     }
 }
+$smtpConfigured = (bool)(env('SMTP_HOST') && env('SMTP_PORT') && env('SMTP_USER') && env('SMTP_PASS'));
 $uploadDir=__DIR__.'/public/uploads';
 $uploadExists=is_dir($uploadDir);
 $uploadWritable=$uploadExists && is_writable($uploadDir);
@@ -58,6 +59,7 @@ if($dbOk){
 <tr><td>Хост MySQL</td><td><?=e(env('DB_HOST'))?></td></tr>
 <tr><td>uploads</td><td><?=$uploadExists?'✅ существует':'❌ нет'?> / <?=$uploadWritable?'запись OK':'❌ запись запрещена'?></td></tr>
 <tr><td>teacher@quizspace.local</td><td><?=$teacher?'✅ найден':'⚠ не найден — выполни migration_infinityfree.sql'?></td></tr>
+<tr><td>SMTP</td><td><?=$smtpConfigured?'✅ параметры заполнены':'❌ не заполнены'?></td></tr>
 </table></div>
 <?php if($errors): ?><div class="flash"><b>Есть проблемы:</b><br><?=e(implode("\n",$errors))?></div>
 <?php else: ?><div class="notice">✅ Сервер и схема совместимы с QuizSpace 3.3.1.</div><?php endif; ?>

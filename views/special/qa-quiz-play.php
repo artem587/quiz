@@ -1,0 +1,5 @@
+<div class="page-head"><div><span class="eyebrow">ПИТАННЯ → ВІДПОВІДЬ</span><h1><?=e($quiz['title'])?></h1><p class="muted">Виберіть одну відповідь. Варіанти автоматично змішані з відповідей цього квиза.</p></div></div>
+<form method="post" class="stack qa-play-list" id="qaPlayForm"><input type="hidden" name="csrf" value="<?=csrf()?>">
+<?php foreach($items as $i=>$item): ?><div class="card qa-play-card"><div class="question-number"><?=($i+1)?></div><h3><?=e($item['question_text'])?></h3><div class="option-grid"><?php foreach($item['options'] as $option): ?><label class="choice"><input type="radio" name="qa[<?=$item['id']?>]" value="<?=e($option)?>" required><span><?=e($option)?></span></label><?php endforeach;?></div></div><?php endforeach;?>
+<div class="actions qa-submit-row"><button class="btn primary wide">Завершити квиз</button></div></form>
+<script>document.querySelectorAll('.qa-play-card .choice').forEach(x=>x.addEventListener('click',()=>{x.closest('.qa-play-card').querySelectorAll('.choice').forEach(y=>y.classList.remove('selected'));x.classList.add('selected')}));</script>
